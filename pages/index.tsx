@@ -2,6 +2,7 @@ import { ConnectWallet, Web3Button, createMerkleTreeFromAllowList, getProofsForA
 import styles from "../styles/Home.module.css";
 import { NextPage } from "next";
 import { useState } from "react";
+import { utils } from 'ethers';
 
 const Home: NextPage = () => {
   const allowList = [
@@ -33,7 +34,11 @@ const Home: NextPage = () => {
       "maxClaimable": "100"
     };
     const proof = await getProofsForAllowListEntry(merkleTree, leaf);
-    const proofHash = "0x" + proof[0].data.toString("hex");
+    //const proofHash = "0x" + proof[0].data.toString("hex");
+    //const proofHash = "0x" + Buffer.from(proof).toString("hex");
+    const proofHash = "0x" + Buffer.from(proof.join('')).toString("hex");
+
+
     return proofHash;
   }
 
