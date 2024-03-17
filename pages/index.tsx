@@ -7,7 +7,7 @@ import { utils } from 'ethers';
 const Home: NextPage = () => {
   const allowList = [
     {
-      "address": "0x686702D92F8a9C9336703e0F2023dc54BD40c0A7",
+      "address": "0x33C107ff1B07feE5A1fe67A3a3589BdbD661106B", 
       "maxClaimable": "100"
     },
     {
@@ -36,14 +36,15 @@ const Home: NextPage = () => {
     const proof = await getProofsForAllowListEntry(merkleTree, leaf);
     //const proofHash = "0x" + proof[0].data.toString("hex");
     //const proofHash = "0x" + Buffer.from(proof).toString("hex");
-    const proofHash = "0x" + Buffer.from(proof.join('')).toString("hex");
+    //const proofHash = "0x" + Buffer.from(proof[0].join('')).toString("hex");
+    const proofHash = "0x" + (Array.isArray(proof[0]) ? Buffer.from(proof[0].join('')).toString("hex") : Buffer.from(proof[0]).toString("hex"));
 
 
     return proofHash;
   }
 
   const address = useAddress();
-  const { contract: tokenContract } = useContract("0x948c6eD8366CE793455D437AbDd7d3b168f65dCc"); 
+  const { contract: tokenContract } = useContract("0x601A47BbD84162c1d5581cCE89Cd999b9eCC5910"); 
   const { data: tokenBalance } = useTokenBalance(tokenContract, address);
 
   return (
